@@ -22,7 +22,10 @@ from statistics import mean
 """
     lim = limits.Limits(allowed_imports=['math'])
     with pytest.raises(ValueError, match="not allowed"):
-        limits.validate(lim, src)
+        limits.validate(lim, src) # should raise for 'os' and 'statistics' (it'll hit for 'os' first)
+    lim = limits.Limits(allowed_imports=['math', 'os'])
+    with pytest.raises(ValueError, match="not allowed"):
+        limits.validate(lim, src) # should raise for 'statistics'
     lim = limits.Limits(allowed_imports=['statistics', 'math', 'os'])
     limits.validate(lim, src)  # should not raise
 

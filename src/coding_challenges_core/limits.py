@@ -30,10 +30,13 @@ def validate(limits: Limits, src: str) -> None:
         raise ValueError(f"Code contains {num_statements} statements, exceeding the limit of {limits.max_statements}.")
 
     for node in ast.walk(tree):
-        if isinstance(node, ast.Import) or isinstance(node, ast.ImportFrom):
+        if isinstance(node, ast.Import):
             for alias in node.names: # TODO: handle from ... import ...
                 if limits.allowed_imports is not None and alias.name not in limits.allowed_imports:
                     raise ValueError(f"Import of '{alias.name}' is not allowed.")
+        if isinstance(node, ast.ImportFrom):
+            if limits.allowed_imports is not None and node.module not in limits.allowed_imports:
+                raise ValueError(f"Import from '{node.module}' is not allowed.")
         elif isinstance(node, ast.Call):
             # TODO: improve this!
             # for now, i'm skipping this because it's BAD.
