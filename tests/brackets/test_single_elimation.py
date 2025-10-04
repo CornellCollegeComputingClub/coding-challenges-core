@@ -44,9 +44,7 @@ def test_gen_bracket_full_7():
     )
     bracket._gen_bracket_full()
     bracket.prepare()
-    matches = bracket._matches@mark.parametrize("sample", range(1000))
-def test_para(sample):
-    assert True
+    matches = bracket._matches
     assert len(matches) == 6
     assert matches_to_str(matches) == [
         "R0M1: d vs e",
