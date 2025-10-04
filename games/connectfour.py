@@ -151,20 +151,20 @@ class GameState:
         #check diagonals
         for i in range(3):
             for j in range(4):
-                diag = [int(self.board[i][j]),
-                        int(self.board[i+1][j+1]),
-                        int(self.board[i+2][j+2]),
-                        int(self.board[i+3][j+3])]
+                diag = [self.board[i][j],
+                        self.board[i+1][j+1],
+                        self.board[i+2][j+2],
+                        self.board[i+3][j+3]]
                 if diag in ([1,1,1,1], [2,2,2,2]):
                     return diag[0]
 
         flippedBoard = np.flip(self.board, (1,))
         for i in range(3):
             for j in range(4):
-                diag = [int(flippedBoard[i][j]),
-                        int(flippedBoard[i+1][j+1]),
-                        int(flippedBoard[i+2][j+2]),
-                        int(flippedBoard[i+3][j+3])]
+                diag = [flippedBoard[i][j],
+                        flippedBoard[i+1][j+1],
+                        flippedBoard[i+2][j+2],
+                        flippedBoard[i+3][j+3]]
                 if diag in ([1,1,1,1], [2,2,2,2]):
                     return diag[0]
                 
